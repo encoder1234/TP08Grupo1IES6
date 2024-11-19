@@ -1,7 +1,6 @@
 package ar.edu.ies6.repository;
 
-public class ProductoRepository {
-
-	public interface ProductoRepository extends CrudRepository <Producto, String>
+public interface ProductoRepository  extends CrudRepository <Producto, String>{
+		List <Producto> findByEstado(Boolean estado);
 
 }
