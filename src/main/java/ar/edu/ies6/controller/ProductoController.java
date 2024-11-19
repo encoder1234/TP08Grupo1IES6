@@ -3,67 +3,70 @@ package ar.edu.ies6.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.ies6.model.Producto;
 import ar.edu.ies6.service.IProductoService;
 
+@Controller
 public class ProductoController {
-	
-	@Controller 
-	public class AlumnoController {
-		@Autowired
-		Producto unProducto;
-		@Qualifier("servicioProductoBD")
-		@Autowired
-		IProductoService productoService;
-	@GetMapping("/Grupo1")
-	public String getIndex() {
-	    System.out.println("esta pasando por aqui");
-	    return "grupo1";
-	}
-	@GetMapping("/Producto")
-	public ModelAndView getIndexWithAlumno() {
-		//transporte hacia la vista
-	ModelAndView Transportador = new ModelAndView("formProducto");
-	Transportador.addObject("producto", unProducto);
-	Transportador.addObject("band", false);
-	return Transportador;
-	}
-	@GetMapping("/listadoProductos")
-	public ModelAndView getAllProducto() {
-		//transporte hacia la vista
-	ModelAndView Transportador = new ModelAndView("listaProductos");
-	Transportador.addObject("listadoProductos",productoService.);
-	return Transportador;
-	}
-	//guardar
-	@PostMapping("/guardarAlumno")
-	public ModelAndView guardarAlumno(Alumno alumno) {
-		alumnoService.guardarAlumno(alumno);
-		ModelAndView Transportador = new ModelAndView("listaAlumnos");
-		Transportador.addObject("listadoAlumnos",alumnoService.ListarAlumnosActivos());
-		return Transportador;
-	}
-	//eliminar
-	@GetMapping ("/eliminarAlumno/{dni}")
-	public ModelAndView deleteAlumno (@PathVariable (name="dni") String dni){
-		alumnoService.eliminarAlumno(dni);
-		//mostrar el nuevo listado
-		 ModelAndView modelView = new ModelAndView ("listaAlumnos");
-		 modelView.addObject("listadoAlumnos",alumnoService.ListarAlumnosActivos());
-		 return modelView;
-	}
-	//modificar
-	@GetMapping ("/modificarAlumno/{dni}")
-	public ModelAndView ModificarAlumno(@PathVariable (name="dni") String dni) {
-		//el parametro de ModelAndView es una vista HTML
-		ModelAndView modelView = new ModelAndView ("formAlumno");
-		modelView.addObject("alumno",alumnoService.consultarAlumno(dni));
-		modelView.addObject("band", true);
-		return modelView;
-	}
-	}
 
+    @Autowired
+    private Producto unProducto;
+
+    @Qualifier("ServicioProductoBD")
+    @Autowired
+    private IProductoService productoService;
+
+    // Página principal o ruta básica
+    @GetMapping("/Grupo1")
+    public String getIndex() {
+        System.out.println("Esta pasando por aquí");
+        return "grupo1";
+    }
+
+    // Formulario para crear o modificar un producto
+    @GetMapping("/Producto")
+    public ModelAndView getIndexWithProducto() {
+        ModelAndView transportador = new ModelAndView("formProducto");
+        transportador.addObject("producto", unProducto);
+        transportador.addObject("band", false); // Bandera para indicar si es creación o modificación
+        return transportador;
+    }
+
+    // Listar todos los productos
+    @GetMapping("/listadoProductos")
+    public ModelAndView getAllProductos() {
+        ModelAndView transportador = new ModelAndView("listaProductos");
+        transportador.addObject("listadoProductos", productoService.ListarTodosProductos());
+        return transportador;
+    }
+
+    // Guardar un producto
+    @PostMapping("/guardarProducto")
+    public ModelAndView guardarProducto(@ModelAttribute Producto producto) {
+        productoService.guardarProducto(producto);
+        ModelAndView transportador = new ModelAndView("listaProductos");
+        transportador.addObject("listadoProductos", productoService.ListarTodosProductos());
+        return transportador;
+    }
+
+    // Eliminar un producto por su código
+    @GetMapping("/eliminarProducto/{codigo}")
+    public ModelAndView deleteProducto(@PathVariable(name = "codigo") String codigo) {
+        productoService.eliminarProducto(codigo);
+        ModelAndView transportador = new ModelAndView("listaProductos");
+        transportador.addObject("listadoProductos", productoService.ListarTodosProductos());
+        return transportador;
+    }
+
+    // Modificar un producto
+    @GetMapping("/modificarProducto/{codigo}")
+    public ModelAndView modificarProducto(@PathVariable(name = "codigo") String codigo) {
+        ModelAndView transportador = new ModelAndView("formProducto");
+        transportador.addObject("producto", productoService.consultarProducto(codigo));
+        transportador.addObject("band", true); // Bandera para indicar que es modificación
+        return transportador;
+    }
 }
