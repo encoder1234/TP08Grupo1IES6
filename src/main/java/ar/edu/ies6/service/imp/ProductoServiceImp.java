@@ -1,66 +1,66 @@
 package ar.edu.ies6.service.imp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import ar.edu.ies6.model.Producto;
+import ar.edu.ies6.repository.ProductoRepository;
 import ar.edu.ies6.service.IProductoService;
-import ar.edu.ies6.util.AlmacenProducto;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
-@Qualifier("ServicioAlumnoBDArrayList")
+@Qualifier("ServicioProductoBD")
 public class ProductoServiceImp implements IProductoService {
 
-	    @Override
-	    public void guardarProducto(Producto producto) {
-	        AlmacenProducto.productos.add(producto);
-	        System.out.println("Producto agregado: " + producto.getCodigo());
-	    }
+    @Autowired
+    private ProductoRepository productoRepository;
 
-	    @Override
-	    public void eliminarAlumno(String dni) {
-	        Optional<Alumno> alumnoAEliminar = AlmacenAlumnos.alumnos.stream()
-	                .filter(alumno -> alumno.getDni().equals(dni))
-	                .findFirst();
-	        
-	        alumnoAEliminar.ifPresent(alumno -> AlmacenAlumnos.alumnos.remove(alumno));
-	    }
+    @Override
+    public void guardarProducto(Producto producto) {
+        productoRepository.save(producto);
+        System.out.println("Producto guardado: " + producto.getCodigo());
+    }
 
-	    @Override
-	    public void modificarAlumno(Alumno alumnoModificado) {
-	        // Buscar el alumno por DNI y actualizar los datos
-	        Optional<Alumno> alumnoExistente = AlmacenAlumnos.alumnos.stream()
-	                .filter(alumno -> alumno.getDni().equals(alumnoModificado.getDni()))
-	                .findFirst();
+    @Override
+    public void eliminarProducto(String codigo) {
+        productoRepository.deleteById(codigo);
+        System.out.println("Producto eliminado: " + codigo);
+    }
 
-	        alumnoExistente.ifPresent(alumno -> {
-	            alumno.setNombre(alumnoModificado.getNombre());
-	            alumno.setApellido(alumnoModificado.getApellido());
-	            alumno.setEstado(alumnoModificado.isEstado());
-	        });
-	    }
+    @Override
+    public void modificarProducto(Producto productoModificado) {
+        Optional<Producto> productoExistente = productoRepository.findById(productoModificado.getCodigo());
+        if (productoExistente.isPresent()) {
+            Producto producto = productoExistente.get();
+            producto.setNombre(productoModificado.getNombre());
+            producto.setDescripcion(productoModificado.getDescripcion());
+            producto.setCategoria(productoModificado.getCategoria());
+            producto.setProveedor(productoModificado.getProveedor());
+            producto.setPrecio(productoModificado.getPrecio());
+            productoRepository.save(producto);
+            System.out.println("Producto modificado: " + producto.getCodigo());
+        } else {
+            System.out.println("Producto no encontrado: " + productoModificado.getCodigo());
+        }
+    }
 
-	    @Override
-	    public Alumno consultarAlumno(String dni) {
-	        // Buscar un alumno por dni
-	        return AlmacenAlumnos.alumnos.stream()
-	                .filter(alumno -> alumno.getDni().equals(dni))
-	                .findFirst()
-	                .orElse(null); // devuleve nada
-	    }
+    @Override
+    public Producto consultarProducto(String codigo) {
+        return productoRepository.findById(codigo).orElse(null);
+    }
 
-	    @Override
-	    public List<Alumno> ListarTodosAlumnos() {
-	        return AlmacenAlumnos.alumnos;
-	    }
+    @Override
+    public List<Producto> ListarTodosProductos() {
+        return (List<Producto>) productoRepository.findAll();
+    }
 
-	    @Override
-	    public List<Alumno> ListarAlumnosActivos() {
-	        // Filtra solo los alumnos activos
-	        return AlmacenAlumnos.alumnos.stream()
-	                .filter(Alumno::isEstado) // Verifica of/on
-	                .toList();
-	    }
-	}
-
+    @Override
+    public List<Producto> ListarProductosActivos() {
+        // Busca productos con estado activo
+        return productoRepository.findAllByEstado(true);
+    }
 }
+

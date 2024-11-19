@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Productos</h1>
+        <nav>
+            <ul>
+                <li><a href="/Grupo1">Inicio</a></li>
+                <li><a href="/Producto">Nuevo Producto</a></li>
+                <li><a href="/listadoProductos">Lista de Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Aquí se insertará el contenido específico de cada vista -->
+        <div th:replace="${content}"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gestión de Productos</p>
+    </footer>
+</body>
+</html>
