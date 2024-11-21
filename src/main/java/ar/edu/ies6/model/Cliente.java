@@ -1,9 +1,12 @@
 package ar.edu.ies6.model;
-
-import jakarta.persistence.*;
 import java.util.List;
 
-import ar.edu.ies6TPF.model.Compra;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Cliente {
