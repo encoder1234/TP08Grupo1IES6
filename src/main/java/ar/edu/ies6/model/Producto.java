@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 
 @Component
@@ -25,6 +26,9 @@ private String proveedor;
 private Double precio;
 	 @OneToMany(mappedBy = "producto")
 	    private List<Compra> compras;
+	 @Lob
+	 @Column(columnDefinition="LONGTEXT")
+private String foto;
 
 public Producto() {
 	// TODO Auto-generated constructor stub
@@ -85,6 +89,15 @@ public List<Compra> getCompras() {
 public void setCompras(List<Compra> compras) {
 	this.compras = compras;
 }
+
+public String getFoto() {
+	return foto;
+}
+
+public void setFoto(String foto) {
+	this.foto = foto;
+}
+
 }
 
 

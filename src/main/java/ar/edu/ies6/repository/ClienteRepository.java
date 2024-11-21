@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.ies6.model.Cliente;
 
-
 @Repository
-public interface ClienteRepository extends CrudRepository<Cliente,Integer> {
-    // busca clientes segun su estado 
-    List<Cliente> findAllByEstado(Boolean estado);
+public interface ClienteRepository extends CrudRepository<Cliente, Long> {
+    // Método personalizado para buscar clientes según su nombre
+    List<Cliente> findAllByNombre(String nombre);
+    List<Cliente> findAllByEstado(boolean b);
 }
