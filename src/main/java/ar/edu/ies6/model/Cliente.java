@@ -12,25 +12,24 @@ import jakarta.persistence.OneToMany;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long dni;
 
-    @Column(nullable = false)
+    @Column
     private String nombre;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String direccion;
 
-    @Column(nullable = false)
+    @Column
     private String codigoPostal;
 
-    @Column(nullable = false)
+    @Column
     private String telefono;
 
-    @Column(nullable = false)
+    @Column
     private String tarjetaCredito;
 
     @OneToMany(mappedBy = "cliente")
@@ -38,70 +37,71 @@ public class Cliente {
 
     public Cliente() {
     }
+ // Getters and Setters
 
-    // Getters and Setters
+	public Long getDni() {
+		return dni;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setDni(Long dni) {
+		this.dni = dni;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getDireccion() {
+		return direccion;
+	}
 
-    public String getDireccion() {
-        return direccion;
-    }
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
 
-    public String getCodigoPostal() {
-        return codigoPostal;
-    }
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
+	public String getTelefono() {
+		return telefono;
+	}
 
-    public String getTelefono() {
-        return telefono;
-    }
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+	public String getTarjetaCredito() {
+		return tarjetaCredito;
+	}
 
-    public String getTarjetaCredito() {
-        return tarjetaCredito;
-    }
+	public void setTarjetaCredito(String tarjetaCredito) {
+		this.tarjetaCredito = tarjetaCredito;
+	}
 
-    public void setTarjetaCredito(String tarjetaCredito) {
-        this.tarjetaCredito = tarjetaCredito;
-    }
+	public List<Compra> getCompras() {
+		return compras;
+	}
 
-    public List<Compra> getCompras() {
-        return compras;
-    }
-
-    public void setCompras(List<Compra> compras) {
-        this.compras = compras;
-    }
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
+    
 }
+

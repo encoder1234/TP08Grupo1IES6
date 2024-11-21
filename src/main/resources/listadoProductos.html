@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Disponibles</title>
+    <link rel="stylesheet" href="/css/estilos.css"> <!-- Enlace a tu CSS -->
+</head>
+<body>
+    <header>
+        <h1>Productos Disponibles</h1>
+        <nav>
+            <a href="/Grupo1">Inicio</a>
+            <a href="/carrito">Ver Carrito</a> <!-- Botón para ir al carrito -->
+        </nav>
+    </header>
+
+    <main>
+        <div class="product-container">
+            <!-- Iterar sobre los productos -->
+            <div class="product-card" th:each="producto : ${listadoProductos}">
+                <img th:src="${producto.imagenURL}" alt="Imagen del Producto" class="product-image">
+                <h2 class="product-name" th:text="${producto.nombre}">Nombre del Producto</h2>
+                <p class="product-price" th:text="'$' + ${producto.precio}">Precio</p>
+                <p class="product-description" th:text="${producto.descripcion}">Descripción breve</p>
+                <button class="btn btn-add-to-cart" th:onclick="'addToCart(' + ${producto.codigo} + ')'">
+                    Agregar al Carrito
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Tienda de Tecnología</p>
+    </footer>
+
+    <!-- Script para manejo del carrito -->
+    <script>
+        function addToCart(productCode) {
+            // Aquí podrías hacer un llamado al servidor o manejar el carrito con JavaScript
+            alert('Producto agregado al carrito: ' + productCode);
+        }
+    </script>
+</body>
+</html>
