@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.ies6.model.Producto;
@@ -43,10 +44,22 @@ public class ProductoController {
         return transportador;
     }
 
-    // Guardar un producto
+    // Guardar un producto, incluyendo la foto con @PostMapping
     @PostMapping("/guardarProducto")
-    public ModelAndView guardarProducto(@ModelAttribute Producto producto) {
-        productoService.guardarProducto(producto);
+    public ModelAndView guardarProducto(@ModelAttribute Producto producto, @RequestParam("foto") MultipartFile foto) {
+        try {
+            // Convertir la imagen a base64 (o URL si lo prefieres)
+            String fotoBase64 = new String(foto.getBytes()); // Aquí puedes convertirla a base64 o guardar el archivo y la URL
+            producto.setFoto(fotoBase64); // Establecemos la foto en el producto
+
+            // Guardamos el producto
+            productoService.guardarProducto(producto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Redirigir a la lista de productos
         ModelAndView transportador = new ModelAndView("listaProductos");
         transportador.addObject("listadoProductos", productoService.ListarTodosProductos());
         return transportador;
@@ -70,3 +83,4 @@ public class ProductoController {
         return transportador;
     }
 }
+

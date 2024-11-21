@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="/css/estilos.css"> <!-- Enlace a tu CSS -->
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+        <nav>
+            <a href="/Grupo1">Inicio</a>
+            <a href="/listadoProductos">Volver a Productos</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="cart-container">
+            <h2>Productos en el Carrito</h2>
+            <!-- Aquí se mostrarían los productos agregados al carrito -->
+            <div class="cart-item" th:each="producto : ${productosEnCarrito}">
+                <img th:src="${producto.imagenURL}" alt="Imagen del Producto" class="cart-image">
+                <p th:text="${producto.nombre}">Producto</p>
+                <p th:text="'$' + ${producto.precio}">Precio</p>
+            </div>
+
+            <!-- Formulario para ingresar datos del cliente -->
+            <h3>Datos de Compra</h3>
+            <form action="/procesarCompra" method="POST">
+                <label for="nombreUsuario">Nombre de Usuario</label>
+                <input type="text" id="nombreUsuario" name="nombreUsuario" required>
+
+                <label for="numeroTarjeta">Número de Tarjeta</label>
+                <input type="text" id="numeroTarjeta" name="numeroTarjeta" required>
+
+                <label for="fechaVencimiento">Fecha de Vencimiento</label>
+                <input type="month" id="fechaVencimiento" name="fechaVencimiento" required>
+
+                <button type="submit" class="btn btn-buy">Comprar</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Tienda de Tecnología</p>
+    </footer>
+</body>
+</html>

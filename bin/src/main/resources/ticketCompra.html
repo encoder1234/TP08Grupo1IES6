@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket de Compra</title>
+    <link rel="stylesheet" href="/css/estilos.css"> <!-- Enlace a tu CSS -->
+</head>
+<body>
+    <header>
+        <h1>Comprobante de Compra</h1>
+        <nav>
+            <a href="/Grupo1">Inicio</a>
+            <a href="/listadoProductos">Volver a Productos</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="ticket-container">
+            <h2>Resumen de la Compra</h2>
+            
+            <!-- Información del usuario -->
+            <p><strong>Nombre de Usuario:</strong> <span th:text="${nombreUsuario}">Usuario</span></p>
+            <p><strong>Fecha de Compra:</strong> <span th:text="${fechaCompra}">Fecha</span></p>
+
+            <!-- Productos comprados -->
+            <h3>Productos Comprados:</h3>
+            <div class="ticket-item" th:each="producto : ${productosComprados}">
+                <img th:src="${producto.imagenURL}" alt="Imagen del Producto" class="ticket-image">
+                <p th:text="${producto.nombre}">Producto</p>
+                <p th:text="'$' + ${producto.precio}">Precio</p>
+            </div>
+
+            <!-- Total de la compra -->
+            <h3>Total: <span th:text="'$' + ${totalCompra}">Total</span></h3>
+
+            <button class="btn btn-return" onclick="window.location.href='/listadoProductos'">Volver a Productos</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Tienda de Tecnología</p>
+    </footer>
+</body>
+</html>
