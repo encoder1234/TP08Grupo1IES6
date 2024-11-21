@@ -14,15 +14,15 @@ public class AlmacenCliente {
         clientes.add(cliente);
     }
 
-    // Método para eliminar un cliente por su id
-    public static void eliminarCliente(Long id) {
-        clientes.removeIf(cliente -> cliente.getId().equals(id));
+    // Método para eliminar un cliente por su dni
+    public static void eliminarCliente(Long dni) {
+        clientes.removeIf(cliente -> cliente.getDni().equals(dni));
     }
 
-    // Método para obtener un cliente por su id
-    public static Cliente obtenerCliente(Long id) {
+    // Método para obtener un cliente por su dni
+    public static Cliente obtenerCliente(Long dni) {
         return clientes.stream()
-                       .filter(cliente -> cliente.getId().equals(id))
+                       .filter(cliente -> cliente.getDni().equals(dni))
                        .findFirst()
                        .orElse(null); // Devuelve null si no encuentra el cliente
     }

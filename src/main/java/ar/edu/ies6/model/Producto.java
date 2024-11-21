@@ -3,8 +3,6 @@ package ar.edu.ies6.model;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-
-import ar.edu.ies6TPF.model.Compra;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

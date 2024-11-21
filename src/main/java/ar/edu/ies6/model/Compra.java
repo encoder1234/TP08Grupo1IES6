@@ -9,21 +9,20 @@ import java.time.LocalDate;
 public class Compra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_dni")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate fecha;
 
-    @Column(nullable = false)
+    @Column
     private Integer cantidad;
 
     public Compra() {

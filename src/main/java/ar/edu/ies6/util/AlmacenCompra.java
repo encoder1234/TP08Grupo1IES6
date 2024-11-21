@@ -16,15 +16,15 @@ public class AlmacenCompra {
         compras.add(compra);
     }
 
-    // Método para eliminar una compra por su ID
-    public static void eliminarCompra(Long id) {
-        compras.removeIf(compra -> compra.getId().equals(id));
+    // Método para eliminar una compra por su Dni
+    public static void eliminarCompra(Long dni) {
+        compras.removeIf(compra -> compra.getId().equals(dni));
     }
 
-    // Método para obtener una compra por su ID
-    public static Compra obtenerCompra(Long id) {
+    // Método para obtener una compra por su dni
+    public static Compra obtenerCompra(Long dni) {
         return compras.stream()
-                      .filter(compra -> compra.getId().equals(id))
+                      .filter(compra -> compra.getId().equals(dni))
                       .findFirst()
                       .orElse(null); // Devuelve null si no encuentra la compra
     }
@@ -34,10 +34,10 @@ public class AlmacenCompra {
         return new ArrayList<>(compras);
     }
 
-    // Método para obtener compras por cliente (por ID)
-    public static List<Compra> obtenerComprasPorCliente(Long clienteId) {
+    // Método para obtener compras por cliente (por dni)
+    public static List<Compra> obtenerComprasPorCliente(Long clienteDni) {
         return compras.stream()
-                      .filter(compra -> compra.getCliente().getId().equals(clienteId))
+                      .filter(compra -> compra.getCliente().getDni().equals(clienteDni))
                       .collect(Collectors.toList());
     }
 
