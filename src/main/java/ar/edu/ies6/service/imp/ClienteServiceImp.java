@@ -41,7 +41,7 @@ public class ClienteServiceImp implements IClienteService {
     }
 
     @Override
-    public Cliente consultarCliente(Long dni) {
+    public Cliente consultarCliente(Integer dni) {
         Optional<Cliente> cliente = clienteRepository.findById(dni);
         return cliente.orElse(null);
     }
