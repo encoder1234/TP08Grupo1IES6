@@ -45,10 +45,12 @@ public class ProductoController {
     }
 
     // Guardar un producto, incluyendo la foto con @PostMapping
-    @PostMapping("/guardarProducto")
-    public ModelAndView guardarProducto(@ModelAttribute Producto producto, @RequestParam("foto") MultipartFile foto) {
-        try {
-            // Convertir la imagen a base64 (o URL si lo prefieres)
+    @PostMapping(value="/guardarProducto", consumes="multipart/form-data")
+    public ModelAndView guardarProducto(@ModelAttribute Producto producto, @RequestParam("file") MultipartFile foto) {
+        
+    	try {
+           // Convertir la imagen a base64 (o URL si lo prefieres)
+    		
             String fotoBase64 = new String(foto.getBytes()); // Aquí puedes convertirla a base64 o guardar el archivo y la URL
             producto.setFoto(fotoBase64); // Establecemos la foto en el producto
 
