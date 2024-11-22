@@ -6,9 +6,9 @@ import ar.edu.ies6.model.Cliente;
 public interface IClienteService {
     // CRUD para Cliente
     void guardarCliente(Cliente cliente);
-    void eliminarCliente(Long dni);
+    void eliminarCliente(String dni);
     void modificarCliente(Cliente clienteModificado);
-    Cliente consultarCliente(Long dni);
+    Cliente consultarCliente(String dni);
     List<Cliente> listarTodosClientes();
     List<Cliente> listarClientesActivos();
 }

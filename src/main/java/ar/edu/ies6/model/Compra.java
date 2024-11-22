@@ -12,7 +12,7 @@ public class Compra {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_dni")
+    @JoinColumn(name = "cliente_dni", referencedColumnName = "dni")
     private Cliente cliente;
 
     @ManyToOne
