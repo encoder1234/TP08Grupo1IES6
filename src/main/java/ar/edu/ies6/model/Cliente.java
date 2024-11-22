@@ -31,6 +31,9 @@ public class Cliente {
 
     @Column
     private String tarjetaCredito;
+    
+    @Column
+    private boolean estado;
 
     @OneToMany(mappedBy = "cliente")
     private List<Compra> compras;
@@ -95,6 +98,14 @@ public class Cliente {
 		this.tarjetaCredito = tarjetaCredito;
 	}
 
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
 	public List<Compra> getCompras() {
 		return compras;
 	}
@@ -102,6 +113,5 @@ public class Cliente {
 	public void setCompras(List<Compra> compras) {
 		this.compras = compras;
 	}
-    
-}
 
+}
