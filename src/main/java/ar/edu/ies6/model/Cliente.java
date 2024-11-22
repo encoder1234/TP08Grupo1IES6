@@ -1,6 +1,8 @@
 package ar.edu.ies6.model;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,11 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+@Component
 @Entity
 public class Cliente {
 
     @Id
-    private Long dni;
+    @Column(length = 50)
+    private String dni;
 
     @Column
     private String nombre;
@@ -42,11 +46,11 @@ public class Cliente {
     }
  // Getters and Setters
 
-	public Long getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(Long dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 

@@ -12,7 +12,7 @@ import ar.edu.ies6.repository.ClienteRepository;
 import ar.edu.ies6.service.IClienteService;
 
 @Service
-@Qualifier("ServicioClienteBD")
+@Qualifier("servicioClienteBD")
 public class ClienteServiceImp implements IClienteService {
 
     @Autowired
@@ -25,7 +25,7 @@ public class ClienteServiceImp implements IClienteService {
     }
 
     @Override
-    public void eliminarCliente(Long dni) {
+    public void eliminarCliente(String dni) {
         clienteRepository.deleteById(dni);
         System.out.println("Cliente eliminado con DNI: " + dni);
     }
@@ -41,7 +41,7 @@ public class ClienteServiceImp implements IClienteService {
     }
 
     @Override
-    public Cliente consultarCliente(Integer dni) {
+    public Cliente consultarCliente(String dni) {
         Optional<Cliente> cliente = clienteRepository.findById(dni);
         return cliente.orElse(null);
     }
