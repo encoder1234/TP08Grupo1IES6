@@ -24,6 +24,9 @@ private String categoria;
 private String proveedor;
 	@Column
 private Double precio;
+	
+	@Column
+    private boolean estado;
 	 @OneToMany(mappedBy = "producto")
 	    private List<Compra> compras;
 	 @Lob
