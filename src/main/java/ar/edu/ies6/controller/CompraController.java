@@ -6,18 +6,27 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.ies6.model.Compra;
+import ar.edu.ies6.model.Producto;
+import ar.edu.ies6.repository.ProductoRepository;
+import ar.edu.ies6.service.IClienteService;
 import ar.edu.ies6.service.ICompraService;
 
 import java.util.List;
 
 @Controller
 public class CompraController {
+	 @Autowired
+	 Producto unaCompra;
+	 @Autowired
+	 ProductoRepository productorepository;
+	 @Autowired
+	 IClienteService clienteService;
 
     @Autowired
     private ICompraService compraService;
 
     // Página principal de compras
-    @GetMapping("/compras")
+    @GetMapping("/listadoCompra")
     public ModelAndView getComprasIndex() {
         ModelAndView transportador = new ModelAndView("listaCompras");
         List<Compra> listadoCompras = compraService.listarTodasLasCompras();
@@ -27,11 +36,13 @@ public class CompraController {
 
     // Formulario para registrar una nueva compra
     @GetMapping("/nuevaCompra")
-    public ModelAndView getFormularioNuevaCompra() {
+    public ModelAndView getIndexWithCompra() {
         ModelAndView transportador = new ModelAndView("formCompra");
         transportador.addObject("compra", new Compra());
+        transportador.addObject("listadoProductos", productorepository.findAll()); 
+        transportador.addObject("listaClientes", clienteService.listarTodosClientes());
         transportador.addObject("band", false); // Indica si es creación o modificación
-        return transportador;
+        return transportador;//
     }
 
     // Guardar una nueva compra

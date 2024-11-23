@@ -23,16 +23,18 @@ public class ClienteController {
 
     @GetMapping("/Cliente")
     public ModelAndView getIndexWithDocente() {
-        ModelAndView transportador = new ModelAndView("formCliente");
+        ModelAndView transportador = new ModelAndView("formClientes");
         transportador.addObject("cliente", unCliente);
         transportador.addObject("band", false);
         return transportador;
     }
 
     @PostMapping("/guardarCliente")
-    public String guardarDocentes(Cliente cliente) {
+    public ModelAndView  guardarDocentes(Cliente cliente) {
         clienteService.guardarCliente(cliente);
-        return "redirect:/listadoCliente";
+        ModelAndView transportador = new ModelAndView("listaClientes");
+        transportador.addObject("listadoClientes", clienteService.listarTodosClientes());
+        return transportador;
     }
 
     @GetMapping("/listadoCliente")
