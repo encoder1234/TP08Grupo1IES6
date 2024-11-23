@@ -26,7 +26,7 @@ public class CompraController {
     private ICompraService compraService;
 
     // Página principal de compras
-    @GetMapping("/listadoCompra")
+    @GetMapping("/listadoCompras")
     public ModelAndView getComprasIndex() {
         ModelAndView transportador = new ModelAndView("listaCompras");
         List<Compra> listadoCompras = compraService.listarTodasLasCompras();
@@ -35,13 +35,13 @@ public class CompraController {
     }
 
     // Formulario para registrar una nueva compra
-    @GetMapping("/nuevaCompra")
+    @GetMapping("/Compras")
     public ModelAndView getIndexWithCompra() {
         ModelAndView transportador = new ModelAndView("formCompra");
         transportador.addObject("compra", new Compra());
         transportador.addObject("listadoProductos", productorepository.findAll()); 
         transportador.addObject("listaClientes", clienteService.listarTodosClientes());
-        transportador.addObject("band", false); // Indica si es creación o modificación
+        transportador.addObject("band", false); 
         return transportador;//
     }
 
@@ -68,7 +68,7 @@ public class CompraController {
     public ModelAndView modificarCompra(@PathVariable(name = "id") Long id) {
         ModelAndView transportador = new ModelAndView("formCompra");
         transportador.addObject("compra", compraService.obtenerCompraPorId(id));
-        transportador.addObject("band", true); // Indica que es modificación
+        transportador.addObject("band", true); 
         return transportador;
     }
 

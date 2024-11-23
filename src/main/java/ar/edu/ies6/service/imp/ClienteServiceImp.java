@@ -53,7 +53,6 @@ public class ClienteServiceImp implements IClienteService {
 
     @Override
     public List<Cliente> listarClientesActivos() {
-        // Esto asume que hay un atributo `estado` en la entidad Cliente
         return clienteRepository.findAllByEstado(true);
     }
 }

@@ -1,5 +1,7 @@
 package ar.edu.ies6.controller;
 
+import java.util.Base64;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,7 @@ public class ProductoController {
     public ModelAndView getIndexWithProducto() {
         ModelAndView transportador = new ModelAndView("formProducto");
         transportador.addObject("producto", unProducto);
-        transportador.addObject("band", false); // Bandera para indicar si es creación o modificación
+        transportador.addObject("band", false); 
         return transportador;
     }
 
@@ -45,27 +47,34 @@ public class ProductoController {
     }
 
     // Guardar un producto, incluyendo la foto con @PostMapping
-    @PostMapping(value="/guardarProducto", consumes="multipart/form-data")
+    @PostMapping(value = "/guardarProducto", consumes = "multipart/form-data")
     public ModelAndView guardarProducto(@ModelAttribute Producto producto, @RequestParam("file") MultipartFile foto) {
-        
-    	try {
-           // Convertir la imagen a base64 (o URL si lo prefieres)
-    		
-            String fotoBase64 = new String(foto.getBytes()); // Aquí puedes convertirla a base64 o guardar el archivo y la URL
-            producto.setFoto(fotoBase64); // Establecemos la foto en el producto
+        ModelAndView transportador = new ModelAndView();
 
-            // Guardamos el producto
+        try {
+            // Validar si el archivo no está vacío
+            if (!foto.isEmpty()) {
+                // Convertir la imagen a Base64
+                String fotoBase64 = Base64.getEncoder().encodeToString(foto.getBytes());
+                producto.setFoto(fotoBase64);
+            } else {
+                producto.setFoto(null); // Si no hay foto, establecerla como null
+            }
+
+            // Guardar el producto
             productoService.guardarProducto(producto);
 
+            // Redirigir a la lista de productos
+            transportador.setViewName("redirect:/listadoProductos"); // Redirige a la ruta correcta
         } catch (Exception e) {
             e.printStackTrace();
+            transportador.setViewName("error"); // Configura una vista de error si es necesario
+            transportador.addObject("error", "No se pudo guardar el producto.");
         }
 
-        // Redirigir a la lista de productos
-        ModelAndView transportador = new ModelAndView("listaProductos");
-        transportador.addObject("listadoProductos", productoService.ListarTodosProductos());
         return transportador;
     }
+
 
     // Eliminar un producto por su código
     @GetMapping("/eliminarProducto/{codigo}")
@@ -81,7 +90,7 @@ public class ProductoController {
     public ModelAndView modificarProducto(@PathVariable(name = "codigo") String codigo) {
         ModelAndView transportador = new ModelAndView("formProducto");
         transportador.addObject("producto", productoService.consultarProducto(codigo));
-        transportador.addObject("band", true); // Bandera para indicar que es modificación
+        transportador.addObject("band", true); 
         return transportador;
     }
 }

@@ -9,8 +9,6 @@ public interface ICompraService {
     void eliminarCompra(Long id);
     Compra consultarCompra(Long id);
     List<Compra> listarTodasLasCompras();
-
-    // Métodos específicos
     List<Compra> obtenerComprasPorCliente(Long clienteId);
     List<Compra> obtenerComprasPorProducto(String productoCodigo);
 	Object obtenerCompraPorId(Long id);
