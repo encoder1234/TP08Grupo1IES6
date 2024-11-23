@@ -18,13 +18,14 @@
                 <th>producto</th>
                 <th>fecha</th>
                 <th>cantidad</th>
+                <th>Edición</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="compra : ${listadoCompras}">
                 <td th:text="${compra.id}"></td>
-                <td th:text="${compra.cliente}"></td>
-                <td th:text="${compra.producto}"></td>
+                <td th:text="${compra.cliente.nombre}"></td>
+                <td th:text="${compra.producto.nombre}"></td>
                 <td th:text="${compra.fecha}"></td>
                 <td th:text="${compra.cantidad}"></td>
                 <td>
