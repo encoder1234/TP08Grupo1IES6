@@ -73,9 +73,9 @@ public class CompraController {
     }
 
     // Listar compras por cliente
-    @GetMapping("/compras/cliente/{clienteId}")
+    @GetMapping("/compras/cliente{clienteId}")
     public ModelAndView obtenerComprasPorCliente(@PathVariable(name = "clienteId") Long clienteId) {
-        ModelAndView transportador = new ModelAndView("listaCompras");
+        ModelAndView transportador = new ModelAndView("compraCliente");
         transportador.addObject("listadoCompras", compraService.obtenerComprasPorCliente(clienteId));
         return transportador;
     }
@@ -83,7 +83,7 @@ public class CompraController {
     // Listar compras por producto
     @GetMapping("/compras/producto/{productoCodigo}")
     public ModelAndView obtenerComprasPorProducto(@PathVariable(name = "productoCodigo") String productoCodigo) {
-        ModelAndView transportador = new ModelAndView("listaCompras");
+        ModelAndView transportador = new ModelAndView("comprarProducto");
         transportador.addObject("listadoCompras", compraService.obtenerComprasPorProducto(productoCodigo));
         return transportador;
     }
