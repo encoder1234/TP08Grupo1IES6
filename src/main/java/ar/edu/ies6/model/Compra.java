@@ -1,14 +1,20 @@
 package ar.edu.ies6.model;
 
-import jakarta.persistence.*;
-import ar.edu.ies6.model.Cliente;
-import ar.edu.ies6.model.Producto;
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Compra {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
 
     @ManyToOne
@@ -70,3 +76,4 @@ public class Compra {
         this.cantidad = cantidad;
     }
 }
+

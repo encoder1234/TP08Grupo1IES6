@@ -17,35 +17,36 @@ public class ClienteController {
     @Autowired
     private Cliente unCliente;
 
-    @Qualifier("servicioClienteBD")  // Debe coincidir con el nombre registrado en la implementación del servicio
+    @Qualifier("servicioClienteBD")
     @Autowired
     private IClienteService clienteService;
 
     @GetMapping("/Cliente")
-    public ModelAndView getIndexWithDocente() {
-        ModelAndView transportador = new ModelAndView("formClientes");
+    public ModelAndView getFormCliente() {
+        ModelAndView transportador = new ModelAndView("formCliente");
         transportador.addObject("cliente", unCliente);
         transportador.addObject("band", false);
         return transportador;
     }
 
     @PostMapping("/guardarCliente")
-    public ModelAndView  guardarDocentes(Cliente cliente) {
+    public ModelAndView guardarCliente(Cliente cliente) {
         clienteService.guardarCliente(cliente);
         ModelAndView transportador = new ModelAndView("listaClientes");
         transportador.addObject("listadoClientes", clienteService.listarTodosClientes());
         return transportador;
     }
 
-    @GetMapping("/listadoCliente")
-    public ModelAndView getAllDocente() {
-        ModelAndView transportador = new ModelAndView("listaCliente");
+    @GetMapping("/listadoClientes")
+    public ModelAndView getListadoClientes() {
+        ModelAndView transportador = new ModelAndView("listaClientes");  
         transportador.addObject("listadoClientes", clienteService.listarTodosClientes());
         return transportador;
     }
 
+
     @GetMapping("/modificarCliente/{dni}")
-    public ModelAndView ModificarCliente(@PathVariable(name = "dni") String dni) {
+    public ModelAndView modificarCliente(@PathVariable(name = "dni") String dni) {
         ModelAndView modelView = new ModelAndView("formCliente");
         modelView.addObject("cliente", clienteService.consultarCliente(dni));
         modelView.addObject("band", true);
@@ -53,8 +54,9 @@ public class ClienteController {
     }
 
     @GetMapping("/eliminarCliente/{dni}")
-    public String deleteCliente(@PathVariable(name = "dni") String dni) {
+    public String eliminarCliente(@PathVariable(name = "dni") String dni) {
         clienteService.eliminarCliente(dni);
-        return "redirect:/listadoCliente";
+        return "redirect:/listadoClientes";
     }
 }
+

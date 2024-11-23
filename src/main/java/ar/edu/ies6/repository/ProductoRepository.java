@@ -9,7 +9,7 @@ import ar.edu.ies6.model.Producto;
 
 @Repository
 public interface ProductoRepository extends CrudRepository<Producto, String> {
-    // Encuentra productos según su estado (activo/inactivo)
+    // Encuentra productos según su estado 
     List<Producto> findAllByEstado(Boolean estado);
 }
 

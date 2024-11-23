@@ -5,36 +5,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlmacenCliente {
+	//metodos
 
-    // Lista estática para almacenar los clientes
+    // almacen clientes
     public static List<Cliente> clientes = new ArrayList<>();
 
-    // Método para agregar un cliente
+    //agregar un cliente
     public static void agregarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
-    // Método para eliminar un cliente por su dni
+    // eliminar cliente por dni
     public static void eliminarCliente(Long dni) {
         clientes.removeIf(cliente -> cliente.getDni().equals(dni));
     }
 
-    // Método para obtener un cliente por su dni
+    //obtener cliente por dni
     public static Cliente obtenerCliente(Long dni) {
         return clientes.stream()
                        .filter(cliente -> cliente.getDni().equals(dni))
                        .findFirst()
-                       .orElse(null); // Devuelve null si no encuentra el cliente
+                       .orElse(null);
     }
 
-    // Método para obtener todos los clientes
+    //obtener todos los clientes
     public static List<Cliente> obtenerTodosClientes() {
         return new ArrayList<>(clientes);
     }
 
-    // Método para listar clientes activos
+    // listar clientes activos
     public static List<Cliente> obtenerClientesActivos() {
-        // Este método filtraría a los clientes activos, suponiendo que existe algún campo de "estado" o similar
-        return clientes; // Suponiendo que todos son activos por ahora
+        return clientes; 
     }
 }
