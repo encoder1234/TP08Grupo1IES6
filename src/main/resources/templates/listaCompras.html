@@ -18,24 +18,45 @@
                 <th>producto</th>
                 <th>fecha</th>
                 <th>cantidad</th>
-                <th>Edición</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="compra : ${listadoCompras}">
                 <td th:text="${compra.id}"></td>
-                <td th:text="${compra.cliente.nombre}"></td>
-                <td th:text="${compra.producto.nombre}"></td>
+                <td th:text="${compra.cliente != null ? compra.cliente.nombre : 'Cliente no disponible'}"></td>
+                <td th:text="${compra.producto != null ? compra.producto.nombre : 'Producto no disponible'}"></td>
                 <td th:text="${compra.fecha}"></td>
                 <td th:text="${compra.cantidad}"></td>
                 <td>
                     <a class="btn btn-danger" th:href="@{'/eliminarCompra/'+${compra.id}}">Borrar</a>
-                    <a class="btn btn-success" th:href="@{'/modificarCompra/'+${compra.id}}">Editar</a>
                 </td>
             </tr>
         </tbody>
     </table>
+    <!-- Menú desplegable para seleccionar cliente o producto -->
+    <div class="my-3">
+        <form action="" method="get" id="selectForm">
+            <label for="selection">Ver Compras por:</label>
+            <select id="selection" class="form-select" onchange="navigate()">
+                <option value="" disabled selected>Seleccionar</option>
+                <option th:value="@{'/compras/cliente/{clienteId}'(clienteId=1)}">Cliente</option>
+                <option th:value="@{'/compras/producto/{productoCodigo}'(productoCodigo='123')}">Producto</option>
+                
+            </select>
+        </form>
+    </div>
 </div>
+<script>
+    // Función para redirigir al usuario según la selección
+    function navigate() {
+        const selection = document.getElementById('selection').value;
+        if (selection) {
+            window.location.href = selection;
+        }
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
