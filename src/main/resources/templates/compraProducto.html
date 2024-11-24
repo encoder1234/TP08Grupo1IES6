@@ -46,13 +46,15 @@
             <p>Seleccione el Producto</p>
         </div>
         <div class="card-body">
-            <form th:action="@/compras/producto/{productoCodigo}" th:object="${productoCodigo}" method="post">
-               
+            <form th:action="@{/compras/producto}" method="get">
                 <div class="mb-3">
                     <label for="producto" class="form-label fw-bold">Producto</label>
-                    <select id="producto" th:field="*{producto}" class="form-select border-primary">
+                    <select id="producto" name="productoCodigo" class="form-select border-primary">
                         <option value="" selected disabled>Seleccione un Producto</option>
-                        <option th:each="producto : ${listadoProductos}" th:value="${producto.codigo}" th:text="${producto.nombre} + ' ' + ${producto.precio}"></option>
+                        <option th:each="producto : ${listadoProductos}" 
+                                th:value="${producto.codigo}" 
+                                th:text="${producto.nombre} + ' - $' + ${producto.precio}">
+                        </option>
                     </select>
                 </div>
 
