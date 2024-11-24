@@ -53,7 +53,8 @@
                         <option value="" selected disabled>Seleccione un Cliente</option>
                         <option th:each="cliente : ${listaClientes}" 
                                 th:value="${cliente.dni}" 
-                                th:text="${cliente.nombre} + ' - DNI: ' + ${cliente.dni}">
+                                th:text="${cliente.nombre} + ' - DNI: ' + ${cliente.dni}" 
+                                th:selected="${cliente.dni == clienteId}">
                         </option>
                     </select>
                 </div>
@@ -64,8 +65,41 @@
             </form>
         </div>
     </div>
-</div>
 
+    <!-- Tabla de compras -->
+    <div class="container-fluid mt-4" th:if="${listadoCompras != null}">
+        <h2 class="my-3 text-center">Listado de Compras</h2>
+
+        <p class="text-danger text-center" th:if="${#lists.isEmpty(listadoCompras)}">
+            No se encontraron compras para el cliente seleccionado.
+        </p>
+
+        <table class="table table-striped table-bordered table-hover" th:if="${!#lists.isEmpty(listadoCompras)}">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Fecha</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="compra : ${listadoCompras}">
+                    <td th:text="${compra.id}"></td>
+                    <td th:text="${compra.cliente.nombre}"></td>
+                    <td th:text="${compra.producto.nombre}"></td>
+                    <td th:text="${compra.fecha}"></td>
+                    <td th:text="${compra.cantidad}"></td>
+                    <td>
+                        <a class="btn btn-danger" th:href="@{'/eliminarCompra/' + ${compra.id}}">Borrar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

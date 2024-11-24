@@ -9,6 +9,7 @@ import ar.edu.ies6.model.Compra;
 @Repository
 public interface CompraRepository extends CrudRepository<Compra, Long> {
     // Encuentra compras realizadas por  dni
+	
     List<Compra> findAllByClienteDni(String clienteDni);
 
     // Encuentra compras usando código
