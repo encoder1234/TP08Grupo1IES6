@@ -39,33 +39,6 @@
         </nav>
     </header>
 
-    <!-- Formulario -->
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white text-center">
-            <h1 class="h3">Lista de Compras realizada por un Cliente</h1>
-            <p>Seleccione el Cliente</p>
-        </div>
-        <div class="card-body">
-            <form th:action="@{/compras/cliente}" method="get">
-                <div class="mb-3">
-                    <label for="cliente" class="form-label fw-bold">Cliente</label>
-                    <select id="cliente" name="clienteId" class="form-select border-primary">
-                        <option value="" selected disabled>Seleccione un Cliente</option>
-                        <option th:each="cliente : ${listaClientes}" 
-                                th:value="${cliente.dni}" 
-                                th:text="${cliente.nombre} + ' - DNI: ' + ${cliente.dni}" 
-                                th:selected="${cliente.dni == clienteId}">
-                        </option>
-                    </select>
-                </div>
-
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Consultar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <!-- Tabla de compras -->
     <div class="container-fluid mt-4" th:if="${listadoCompras != null}">
         <h2 class="my-3 text-center">Listado de Compras</h2>

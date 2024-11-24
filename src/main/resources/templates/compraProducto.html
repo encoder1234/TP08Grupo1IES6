@@ -39,33 +39,6 @@
         </nav>
     </header>
 
-    <!-- Formulario -->
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white text-center">
-            <h1 class="h3">Lista de Compras por Producto</h1>
-            <p>Seleccione el Producto</p>
-        </div>
-        <div class="card-body">
-            <form th:action="@{/compras/producto}" method="get">
-                <div class="mb-3">
-                    <label for="producto" class="form-label fw-bold">Producto</label>
-                    <select id="producto" name="productoCodigo" class="form-select border-primary">
-                        <option value="" selected disabled>Seleccione un Producto</option>
-                        <option th:each="producto : ${listadoProductos}" 
-                                th:value="${producto.codigo}" 
-                                th:text="${producto.nombre} + ' - $' + ${producto.precio}" 
-                                th:selected="${producto.codigo == productoCodigo}">
-                        </option>
-                    </select>
-                </div>
-
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Consultar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <!-- Tabla de compras -->
     <div class="container-fluid mt-4" th:if="${listadoCompras != null}">
         <h2 class="my-3 text-center">Listado de Compras</h2>
@@ -104,3 +77,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
