@@ -18,7 +18,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                   <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-light" href="/inicio">Inicio</a>
                         </li>
                         <li class="nav-item">
@@ -49,12 +49,12 @@
             <form th:action="@{/guardarCompra}" th:object="${compra}" method="post">
                 <div class="mb-3">
                     <label for="fecha" class="form-label fw-bold">Fecha</label>
-                    <input type="text" id="fecha" th:field="*{fecha}" class="form-control border-primary">
+                    <input type="date" id="fecha" th:field="*{fecha}" class="form-control border-primary" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="cantidad" class="form-label fw-bold">Cantidad</label>
-                    <input type="text" id="cantidad" th:field="*{cantidad}" class="form-control border-primary">
+                    <input type="number" id="cantidad" th:field="*{cantidad}" class="form-control border-primary" required min="1">
                 </div>
 
                 <div class="mb-3">
@@ -84,3 +84,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

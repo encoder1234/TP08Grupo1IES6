@@ -1,80 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carga de Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .dropdown-menu {
+            border-radius: 8px;
+        }
+        .col {
+            margin-top: 20px;
+        }
+        #output {
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-<header><nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">IES6</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listadoProductos">Lista de Productos</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Opciones
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/Producto">Productos</a></li>
-            <li><a class="dropdown-item" href="/Cliente">Clientes</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/Compras">Compras</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">IES6</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/listadoProductos">Lista de Productos</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Opciones
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/Producto">Productos</a></li>
+              <li><a class="dropdown-item" href="/Cliente">Clientes</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/Compras">Compras</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+          <button class="btn btn-outline-primary" type="submit">Buscar</button>
+        </form>
+      </div>
     </div>
-  </div>
-</nav></header>
+  </nav>
+</header>
 
 <h1>Carga de Productos</h1>
-<p>Ingrese los Datos Solicitados</p>
+<p class="text-muted">Ingrese los Datos Solicitados</p>
+
 <form data-th-object="${producto}" data-th-action="@{/guardarProducto}" method="post" enctype="multipart/form-data"> 
 
-<label>Codigo</label>
-<input type="number" data-th-field= "${producto.codigo}" data-th-readonly=${band}></input>
-<br>
-<label>Nombre</label>
-<input type="text" data-th-field= "${producto.nombre}"></input>
-<br>
-<label>Descripion</label>
-<input type="text" data-th-field= "${producto.descripcion}"></input>
-<br>
-<label>Categoria</label>
-<input type="text" data-th-field= "${producto.categoria}"></input>
-<br>
-<label>Proveedor</label>
-<input type="text" data-th-field= "${producto.proveedor}"></input>
-<br>
-<label>Precio</label>
-<input type="text" data-th-field= "${producto.precio}"></input>
-<br>
-<label>Fotografia</label>
-<input class="form-control" type="file" name="file" accept= "image/png,image/ipeg,/image/gif,image/x-png,  image/jpg" onchange="loadFile(event)"></input>
-<img id="output" style="width:150px; padding:3px">
-<div class="col">
-<input type="submit" value= "Guardar Producto"></input>
-</div>
+  <div class="mb-3">
+    <label for="codigo" class="form-label">Código</label>
+    <input type="number" id="codigo" data-th-field="${producto.codigo}" data-th-readonly="${band}" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" id="nombre" data-th-field="${producto.nombre}" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="descripcion" class="form-label">Descripción</label>
+    <input type="text" id="descripcion" data-th-field="${producto.descripcion}" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="categoria" class="form-label">Categoría</label>
+    <input type="text" id="categoria" data-th-field="${producto.categoria}" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="proveedor" class="form-label">Proveedor</label>
+    <input type="text" id="proveedor" data-th-field="${producto.proveedor}" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="precio" class="form-label">Precio</label>
+    <input type="number" id="precio" data-th-field="${producto.precio}" class="form-control" step="0.01" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="file" class="form-label">Fotografía</label>
+    <input id="file" class="form-control" type="file" name="file" accept="image/png,image/jpeg,image/gif,image/jpg" onchange="loadFile(event)">
+    <img id="output" style="width:150px; padding:3px" />
+  </div>
+
+  <div class="col">
+    <input type="submit" value="Guardar Producto" class="btn btn-primary">
+  </div>
 
 </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
